@@ -26,9 +26,11 @@ class crawler:
     def login(self,username,password):
         self.get(url='http://jwglweixin.bupt.edu.cn/sjd/')
         login_url = 'http://jwglweixin.bupt.edu.cn/bjyddx/login'
+        pwd_origin = AESUtil.encrypt('"' + password + '"', key='qzkj1kjghd=876&*')
         param = {
             'userNo':username,
-            'pwd':AESUtil.encrypt('"'+password+'"',key='qzkj1kjghd=876&*'),
+            'pwd': base64.b64encode(pwd_origin.encode('utf-8')),
+            #'pwd':AESUtil.encrypt('"'+password+'"',key='qzkj1kjghd=876&*'),
             'encode':0
         }
         response = self.post(login_url,param)
